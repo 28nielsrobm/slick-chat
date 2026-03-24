@@ -1,1 +1,1 @@
-# slick-chat
+The Administrator version of slip-chat.
