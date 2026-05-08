@@ -100,8 +100,9 @@ db.ref('rooms').on('value', snapshot => {
     roomSelect.appendChild(option);
   });
 
-  if (!currentRoom && roomSelect.value) {
-    currentRoom = roomSelect.value;
+  if (!currentRoom) {
+    currentRoom = "Main";
+    roomSelect.value = "Main";
     loadMessages();
   }
 });
@@ -121,6 +122,12 @@ function createRoom() {
 // Delete room
 function deleteRoom() {
   if (!currentRoom) return;
+
+  if (currentRoom === "Main") {
+    alert("Main room cannot be deleted.");
+    return;
+  }
+
   db.ref('rooms/' + currentRoom).remove();
   chatDiv.innerHTML = "";
 }
