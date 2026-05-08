@@ -16,9 +16,16 @@
 
 <h1>Slickers Admin</h1>
 
-  <div id="loginBox">
+<div id="loginBox">
   <input type="password" id="adminPass" placeholder="Admin Password">
   <button onclick="login()">Login</button>
+
+  <p style="margin-top:10px; font-size:14px;">
+    <span style="color:#888;">Not an Admin?</span><br>
+    <a href="https://YOUR-USERNAME.github.io/slip-chat/" style="color:#4aa3ff;">
+      Enter Normal Chat
+    </a>
+  </p>
 </div>
 
 <div id="adminPanel" style="display:none;">
@@ -61,6 +68,15 @@ let currentRoom = "";
 const chatDiv = document.getElementById('chat');
 const msgInput = document.getElementById('msg');
 const roomSelect = document.getElementById('roomSelect');
+
+// Ensure Main room always exists
+db.ref('rooms/Main').once('value', snapshot => {
+  if (!snapshot.exists()) {
+    db.ref('rooms/Main').set({
+      created: Date.now()
+    });
+  }
+});
 
 const ADMIN_PASSWORD = "1999";
 function login() {
